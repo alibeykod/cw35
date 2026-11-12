@@ -1,0 +1,88 @@
+Scenario
+You are building a Spring Boot REST API called Movie Catalog API that manages a collection of
+movies.
+Each Movie has:
+
+id (auto-generated)
+
+title
+
+director
+
+genre
+
+releaseYear
+
+rating
+API clients (via Postman) can:
+
+List all movies at GET /movies
+
+Get a single movie at GET /movies/{id}
+
+Create a movie at POST /movies (JSON body)
+
+Delete a movie at DELETE /movies/{id}
+
+Search by director at GET /movies/search?director=...
+
+Search by genre at GET /movies/byGenre?genre=...
+
+Search by exact title at GET /movies/byTitle?title=... (custom JPQL query)
+Data is stored in an H2 in-memory database.
+No XML. No JSP. No @Controller. REST API only.
+
+علی مرادی
+2:17 PM
+----------------------------
+
+Create a Spring Boot project using
+start.spring.io
+
+with:
+Dependencies: Spring Web, Spring Data JPA, H2 Database, Validation
+Package structure:
+com.movies
+├
+── model
+├
+── dto
+├
+── repository
+├
+── service
+└── controller
+6. Repository — MovieRepository
+Create MovieRepository in package com.movies.repository:
+
+@Repository
+
+extends JpaRepository<Movie, Long>
+
+Derived query method: List<Movie> findByDirector(String director)
+
+Derived query method: List<Movie> findByGenre(String genre)
+
+Custom JPQL query:
+@Query("SELECT m FROM Movie m WHERE m.title = :title")
+List<Movie> searchByTitle(@Param("title") String title);
+
+
+علی مرادی
+3:05 PM
+-------------------------------------
+
+6. Repository — MovieRepository
+Create MovieRepository in package com.movies.repository:
+
+@Repository
+
+extends JpaRepository<Movie, Long>
+
+Derived query method: List<Movie> findByDirector(String director)
+
+Derived query method: List<Movie> findByGenre(String genre)
+
+Custom JPQL query:
+@Query("SELECT m FROM Movie m WHERE m.title = :title")
+List<Movie> searchByTitle(@Param("title") String title);
